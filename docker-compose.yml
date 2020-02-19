@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  db:
+    container_name: db
+    image: mysql:5.7.27
+    environment:
+      - TZ=Asia/Tokyo
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+
+  back:
+    container_name: back
+    build: back/
+    volumes:
+      - ./back:/app
+      - backend-bundle:/usr/local/bundle
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    command: /bin/sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
+
+  front:
+    container_name: front
+    build: front/
+    command: npm run dev
+    volumes:
+      - ./front:/app
+      - frontend-node_modules:/app/node_modules
+    ports:
+      - 8080:3000
+volumes:
+  db-data:
+  backend-bundle:
+  frontend-node_modules:
