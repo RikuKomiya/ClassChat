@@ -5,6 +5,7 @@ ENV HOME="/app" \
     TZ=Asia/Tokyo 
 
 WORKDIR ${HOME}
+# COPY class_chat/package*.json ./
 
 RUN apk update && \
     apk upgrade && \
