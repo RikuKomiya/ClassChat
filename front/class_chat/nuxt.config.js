@@ -43,7 +43,8 @@ export default {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
   /*
   ** Axios module configuration
@@ -53,6 +54,17 @@ export default {
     host: 'localhost',
     port: 3000,
     prefix: '/api'
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/users/sign_in'},
+          logout: { url: '/users/sign_out', method: 'delete'},
+          user: { url: '/users/current'}
+        }
+      }
+    }
   },
   /*
   ** Build configuration
