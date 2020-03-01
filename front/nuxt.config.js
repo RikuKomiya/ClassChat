@@ -1,3 +1,4 @@
+import colors from 'vuetify/es5/util/colors'
 
 export default {
   mode: 'universal',
@@ -5,6 +6,7 @@ export default {
   ** Headers of the page
   */
   head: {
+    titleTemplate: '%s - ' + process.env.npm_package_name,
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
@@ -23,45 +25,64 @@ export default {
   ** Global CSS
   */
   css: [
-    'element-ui/lib/theme-chalk/index.css'
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
   ],
   /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/vuetify',
   ],
   /*
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
-  /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
   axios: {
     host: 'localhost',
-    port: 3000,
-    prefix: '/api'
+    port: 8080,
   },
   auth: {
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      callback: false,
+      home: '/',
+    },
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/users/sign_in'},
-          logout: { url: '/users/sign_out', method: 'delete'},
-          user: { url: '/users/current'}
+          login: { url: 'api/users/sign_in', method: 'post',propertyName: 'token' },
+          // user: false,
+          user: {url: 'api/users/current', method: 'get',  propertyName: false},
+          logout: { url: '/users/sign_out', method: 'delete' },
+        }
+      }
+    }
+  },
+  /*
+  ** vuetify module configuration
+  ** https://github.com/nuxt-community/vuetify-module
+  */
+  vuetify: {
+    customVariables: ['~/assets/variables.scss'],
+    theme: {
+      dark: true,
+      themes: {
+        dark: {
+          primary: colors.blue.darken2,
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
         }
       }
     }
@@ -70,16 +91,10 @@ export default {
   ** Build configuration
   */
   build: {
-    transpile: [/^element-ui/],
     /*
     ** You can extend webpack config here
     */
     extend (config, ctx) {
-    }
-  },
-  watchers: {
-    webpack: {
-      poll: true
     }
   }
 }

@@ -1,6 +1,6 @@
 # class_chat
 
-> My premium Nuxt.js project
+> My cool Nuxt.js project
 
 ## Build Setup
 
