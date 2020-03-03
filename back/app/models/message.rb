@@ -1,12 +1,11 @@
 # == Schema Information
 #
-# Table name: examples
+# Table name: messages
 #
 #  id         :bigint           not null, primary key
-#  color      :string(255)
-#  name       :string(255)
+#  text       :text(65535)      not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class Example < ApplicationRecord
+class Message < ApplicationRecord
 end

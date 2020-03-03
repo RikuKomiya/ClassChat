@@ -1,24 +1,15 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#db作成
+ridgepoleを使っているためmigrationは行わない
+1, モデル作成、skip-migrationを忘れない
+```
+rails g model {model_name} --skip-migration
+```
+1、Schemfileにdbを定義
+2、下記のコマンド実行でDb作成
+```
+bundle exec ridgepole -c config/database.yml -E development --apply -f Schemafile
+```
+3、annotateを実行し、モデルファイルにDb詳細を追加
+```
+bundle exec annotate
+```
