@@ -1,5 +1,5 @@
 <template>
-<v-card>
+  <v-card>
     <v-card-text> 
       <p>{{ user.email }}</p>
       <p>user</p>
@@ -19,7 +19,7 @@ export default {
   },
   data() {
     return {
-      user: this.$auth.user.user
+      user: this.$auth.user
     }
   },
   methods: {
