@@ -27,6 +27,7 @@ create_table "lectures", force: :cascade do |t|
 end
 
 create_table "messages", force: :cascade do |t|
+  t.bigint "lecture_id", null: false
   t.text "text", null: false
   t.datetime "created_at", precision: 6, null: false
   t.datetime "updated_at", precision: 6, null: false
