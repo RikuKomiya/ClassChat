@@ -30,6 +30,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '@/plugins/actioncable-vue', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -45,7 +46,8 @@ export default {
     '@nuxtjs/auth'
   ],
   axios: {
-    host: 'localhost',
+    host: 'host.docker.internal',
+    // host: 'localhost',
     port: 8080,
   },
   auth: {
@@ -86,6 +88,9 @@ export default {
         }
       }
     }
+  },
+  env: {
+    websocketHost: process.env.WEBSOCKET_HOST || "ws://localhost:8080/cable"
   },
   /*
   ** Build configuration

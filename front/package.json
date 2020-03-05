@@ -13,6 +13,7 @@
   "dependencies": {
     "@nuxtjs/auth": "^4.8.5",
     "@nuxtjs/axios": "^5.9.5",
+    "actioncable-vue": "^1.6.2",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {

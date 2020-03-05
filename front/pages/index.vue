@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-text> 
-      <p>{{ user.email }}</p>
+      <!-- <p >{{ user.email }}</p> -->
       <p>user</p>
       <v-card-actions>
         <v-btn @click="logout">logout</v-btn>

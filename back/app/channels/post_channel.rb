@@ -1,7 +1,7 @@
 class PostChannel < ApplicationCable::Channel
   def subscribed
     # stream_from "some_channel"
-    stream_from 'post:message'
+    stream_from "post:chanel_#{params[:room]}"
   end
 
   def unsubscribed
@@ -9,6 +9,7 @@ class PostChannel < ApplicationCable::Channel
   end
   
   def post(data)
-    PostChannel.broadcast_to('message', data['message'])
+    message = Message.create!(lecture_id: data['lecture_id'], text: data['message'])
+    PostChannel.broadcast_to("chanel_#{params[:room]}", message)
   end
 end

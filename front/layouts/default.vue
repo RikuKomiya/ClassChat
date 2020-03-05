@@ -14,8 +14,7 @@
             <v-icon>mdi-account</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-text>user:</v-list-item-text>
-            <v-list-item-title v-text="$auth.user.email"/>
+            <v-list-item-title></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item
@@ -61,6 +60,9 @@
 export default {
   data () {
     return {
+      clipped: false,
+      fixed: false,
+      miniVariant: false,
       drawer: false,
       items: [
         {
@@ -72,6 +74,16 @@ export default {
           icon: 'mdi-login',
           title: 'Login',
           to: '/login'
+        },
+        {
+          icon: "mdi-user",
+          title: 'Lectures',
+          to: '/lectures'
+        },
+        {
+          icon: "",
+          title: "lecture1",
+          to: '/lectures/1'
         }
       ],
       title: 'ClassChat'
