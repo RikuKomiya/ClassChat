@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-text> 
-      <!-- <p >{{ user.email }}</p> -->
+      <p v-if="this.$auth.loggedIn">{{ user.email }}</p>
       <p>user</p>
       <v-card-actions>
         <v-btn @click="logout">logout</v-btn>
@@ -14,7 +14,7 @@
 export default {
   middleware({ store, redirect }) {
     if(!store.$auth.loggedIn) {
-      redirect('/login');
+      redirect('/users/login');
     }
   },
   data() {

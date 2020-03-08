@@ -73,17 +73,17 @@ export default {
         {
           icon: 'mdi-login',
           title: 'Login',
-          to: '/login'
+          to: 'users/login'
         },
         {
-          icon: "mdi-user",
+          icon: "mdi-school",
           title: 'Lectures',
           to: '/lectures'
         },
         {
-          icon: "",
-          title: "lecture1",
-          to: '/lectures/1'
+          icon: "mdi-account-check",
+          title: "新規登録",
+          to: 'users/sign_up'
         }
       ],
       title: 'ClassChat'

@@ -52,8 +52,8 @@ export default {
   },
   auth: {
     redirect: {
-      login: '/login',
-      logout: '/login',
+      login: '/users/login',
+      logout: '/users/login',
       callback: false,
       home: '/',
     },
@@ -63,7 +63,7 @@ export default {
           login: { url: 'api/users/sign_in', method: 'post',propertyName: 'token' },
           // user: false,
           user: {url: 'api/users/current', method: 'get',  propertyName: false},
-          logout: { url: '/users/sign_out', method: 'delete' },
+          logout: { url: 'api/users/sign_out', method: 'delete' },
         }
       }
     }

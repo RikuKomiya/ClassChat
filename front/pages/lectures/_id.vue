@@ -4,7 +4,7 @@
     <v-card>
       <v-card-text> 
         <v-form>
-          <v-text-field v-model="message" label="Message"/>
+          <v-textarea v-model="message" label="Message"/>
         </v-form>
         <v-card-actions>
           <v-btn @click="sendMessage">投稿</v-btn>
@@ -12,8 +12,8 @@
       </v-card-text>
     </v-card>
     <v-card v-for="message in messages" :key="message.id">
-      <v-card-text> 
-        {{message.text}}
+      <v-card-text class="message-content"> 
+        <p>{{message.text}}</p>
       </v-card-text>
     </v-card>
   </div>
@@ -66,3 +66,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.message-content{
+  white-space: pre-wrap;
+  margin-top: 15px;
+}
+</style>

@@ -7,6 +7,8 @@
       </v-form>
       <v-card-actions>
         <v-btn @click="login">login</v-btn>
+        <v-spacer/>
+        <nuxt-link to="/users/sign_up">新規登録はこちら</nuxt-link>
       </v-card-actions>
     </v-card-text>
   </v-card>
