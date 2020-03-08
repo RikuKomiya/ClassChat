@@ -8,7 +8,7 @@
     </thead>
     <tbody>
       <tr v-for="lecture in lectures" :key="lecture.id">
-        <td><a :href="`lectures/` + lecture.id">{{ lecture.name }}</a></td>
+        <td><nuxt-link :to="`lectures/` + lecture.id">{{ lecture.name }}</nuxt-link></td>
         <td>{{ lecture.professor_name}}</td>
       </tr>
     </tbody>
@@ -32,6 +32,9 @@ export default {
     }
     
   },
+  created() {
+    console.log(process.env.API_URL)
+  }
 }
 
 </script>

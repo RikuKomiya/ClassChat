@@ -46,9 +46,9 @@ export default {
     '@nuxtjs/auth'
   ],
   axios: {
-    host: 'host.docker.internal',
+    baseURL: "http://back:3000",
+    browserBaseURL: 'http://localhost:8080'
     // host: 'localhost',
-    port: 8080,
   },
   auth: {
     redirect: {

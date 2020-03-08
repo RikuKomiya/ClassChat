@@ -61,5 +61,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.web_console.whitelisted_ips = '0.0.0.0/0'
   config.action_cable.disable_request_forgery_protection = true
-  config.hosts << "host.docker.internal"
+  config.hosts << "back"
 end
