@@ -10,6 +10,7 @@
 #  reset_password_token   :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  university_id          :integer          not null
 #
 # Indexes
 #
@@ -21,5 +22,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :jwt_authenticatable, jwt_revocation_strategy: JwtBlacklist
+         :jwt_authenticatable, jwt_revocation_strategy: 
+         
+  belongs_to :university
 end

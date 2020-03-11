@@ -10,6 +10,7 @@
 #  reset_password_token   :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  university_id          :integer          not null
 #
 # Indexes
 #
