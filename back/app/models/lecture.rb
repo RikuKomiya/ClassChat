@@ -10,6 +10,7 @@
 #  sem            :integer          not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  university_id  :integer          not null
 #
 class Lecture < ApplicationRecord
   has_many :messages
