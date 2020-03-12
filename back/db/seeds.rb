@@ -10,3 +10,4 @@ i = 1
   Lecture.create(name: "lecture#{i}", professor_name: "教授{¥#{i}", period: "1")
   i += 1
 end
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
