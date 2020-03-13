@@ -11,17 +11,30 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
 
+  nginx:
+    build:
+      context: .
+      dockerfile: ./back/nginx/Dockerfile
+    ports:
+      - '80:80'
+      #socketファイルの共有
+    volumes: 
+      - sockets:/app/tmp/sockets
+    depends_on: 
+      - back
+
   back:
     container_name: back
     build: back/
     volumes:
       - ./back:/app
       - backend-bundle:/usr/local/bundle
+      - sockets:/app/tmp/sockets
     depends_on:
       - db
     ports:
       - 8080:3000
-    command: /bin/sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
+    command: /bin/sh -c "rm -f /app/tmp/pids/server.pid && bundle exec puma -C config/puma.rb "
 
   front:
     container_name: front
@@ -35,4 +48,5 @@ services:
 volumes:
   db-data:
   backend-bundle:
+  sockets:
   frontend-node_modules:
