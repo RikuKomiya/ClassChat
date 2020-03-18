@@ -1,4 +1,6 @@
 class SessionsController < Devise::SessionsController
+	include ActionController::MimeResponds
+  respond_to :json
 	def create
 		super { @token = current_token }
 	end
