@@ -89,6 +89,9 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # とりあえずソケット通信のリクエスト元は全て許可
+  #　ドメイン決定したら変える
+  config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
   # middleware. The `delay` is used to determine how long to wait after a write
