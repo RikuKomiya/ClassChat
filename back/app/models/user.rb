@@ -10,7 +10,7 @@
 #  reset_password_token   :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  university_id          :integer          not null
+#  university_id          :integer
 #
 # Indexes
 #
@@ -24,6 +24,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: JwtBlacklist
 
-  belongs_to :university
+  belongs_to :university, optional: true
   
 end
