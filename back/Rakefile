@@ -4,3 +4,12 @@
 require_relative 'config/application'
 
 Rails.application.load_tasks
+
+namespace :db do
+  task :ridgepole do
+    sh "bundle exec ridgepole -c config/database.yml -E development --apply -f Schemafile"
+  end
+  task :with_annotate=>[:ridgepole] do
+    sh "bundle exec annotate"
+  end
+end
