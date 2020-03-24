@@ -1,12 +1,28 @@
 <template>
   <v-card>
-    <v-card-text> 
-      <v-form>
-        <v-text-field v-model="email" label="Email"/>
-        <v-text-field v-model="password" label="Password" type="password" />
+    <v-card-text>
+      <v-form v-model="valid">
+        <v-text-field 
+        v-model="email" 
+        label="Email"
+        :rules="emailRules"
+        required
+        :error-messages="errors.email"
+        @input="onChage"/>
+        <v-text-field 
+        v-model="password" 
+        label="Password" 
+        type="password" 
+        :rules="passwordRules"
+        required/>
       </v-form>
       <v-card-actions>
-        <v-btn @click="sign_up">新規登録</v-btn>
+        <v-btn 
+        @click="sign_up" 
+        :disabled="!valid"
+        >新規登録</v-btn>
+        <v-spacer/>
+        <nuxt-link to="/users/login">ログインはこちら</nuxt-link>
       </v-card-actions>
     </v-card-text>
   </v-card>
@@ -21,9 +37,20 @@ export default {
   },
   data () {
     return {
+       valid: false,
         email: '',
+        emailRules: [
+          v => !!v || 'Emailを入力してください',
+          v => /.+@.+/.test(v) || '正しいEmailを入力してください'
+        ],
         password: '',
-        error: null
+        passwordRules: [
+          v => !!v || 'Passwordを入力してください',
+          v => v.length >= 6 || 'Passwordが短すぎます'
+        ],
+        errors: {
+          email: [],
+        }
     }
   },
  methods: {
@@ -45,8 +72,13 @@ export default {
       // ここでホームへリダイレクトする前に行いたい処理
       this.$router.replace({ path: '/' }); // 任意のタイミングでリダイレクト
     } catch(error) {
-      console.log(error);
+      // var error = error.response.data.errors
+      this.errors.email = error.response.data.errors.email
+      console.log(error.response.data.errors);
     }
+  },
+  onChage: function() {
+    this.errors.email = []
   }
 }
 }
