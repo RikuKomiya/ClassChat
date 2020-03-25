@@ -15,6 +15,12 @@
         type="password" 
         :rules="passwordRules"
         required/>
+        <v-text-field 
+        v-model="confirmPassword" 
+        label="Password(確認)" 
+        type="password" 
+        :rules="confirmPasswordRules"
+        required/>
       </v-form>
       <v-card-actions>
         <v-btn 
@@ -47,6 +53,10 @@ export default {
         passwordRules: [
           v => !!v || 'Passwordを入力してください',
           v => v.length >= 6 || 'Passwordが短すぎます'
+        ],
+        confirmPassword: '',
+        confirmPasswordRules: [
+          v => v === this.password || 'Passwordと違います'
         ],
         errors: {
           email: [],
