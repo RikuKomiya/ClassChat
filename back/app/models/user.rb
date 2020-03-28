@@ -5,11 +5,13 @@
 #  id                     :bigint           not null, primary key
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
+#  name                   :string(255)
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  facluty_id             :integer
 #  university_id          :integer
 #
 # Indexes
@@ -24,6 +26,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: JwtBlacklist
 
+  validates :university_id, presence: true, on: :update
+  validates :facluty_id, presence: true, on: :update
+  validates :name, presence: true, on: :update
+
   belongs_to :university, optional: true
+  belongs_to :facluty, optional: true
   
 end
