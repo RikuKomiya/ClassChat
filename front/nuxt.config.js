@@ -25,6 +25,7 @@ export default {
   ** Global CSS
   */
   css: [
+    '@/assets/main.scss'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -46,9 +47,11 @@ export default {
     '@nuxtjs/auth'
   ],
   axios: {
-    baseURL: "http://back:3000",
-    browserBaseURL: 'http://localhost:8080'
+    proxy: true
     // host: 'localhost',
+  },
+  proxy: {
+    '/api/': "http://back:3000"
   },
   auth: {
     redirect: {

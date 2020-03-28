@@ -1,15 +1,40 @@
 <template>
-  <v-card>
-    <v-card-text> 
-      <v-form>
-        <v-text-field v-model="email" label="Email"/>
-        <v-text-field v-model="password" label="Password" type="password" />
-      </v-form>
-      <v-card-actions>
-        <v-btn @click="sign_up">新規登録</v-btn>
-      </v-card-actions>
-    </v-card-text>
-  </v-card>
+  <div>
+    <BuTitle title="新規登録"/>
+    <v-card>
+      <v-card-text>
+        <v-form v-model="valid">
+          <v-text-field 
+          v-model="email" 
+          label="Email"
+          :rules="emailRules"
+          required
+          :error-messages="errors.email"
+          @input="onChage"/>
+          <v-text-field 
+          v-model="password" 
+          label="Password" 
+          type="password" 
+          :rules="passwordRules"
+          required/>
+          <v-text-field 
+          v-model="confirmPassword" 
+          label="Password(確認)" 
+          type="password" 
+          :rules="confirmPasswordRules"
+          required/>
+        </v-form>
+        <v-card-actions>
+          <v-btn 
+          @click="sign_up" 
+          :disabled="!valid"
+          >新規登録</v-btn>
+          <v-spacer/>
+          <nuxt-link to="/users/login">ログインはこちら</nuxt-link>
+        </v-card-actions>
+      </v-card-text>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -21,33 +46,56 @@ export default {
   },
   data () {
     return {
+       valid: false,
         email: '',
+        emailRules: [
+          v => !!v || 'Emailを入力してください',
+          v => /.+@.+/.test(v) || '正しいEmailを入力してください'
+        ],
         password: '',
-        error: null
+        passwordRules: [
+          v => !!v || 'Passwordを入力してください',
+          v => v.length >= 6 || 'Passwordが短すぎます'
+        ],
+        confirmPassword: '',
+        confirmPasswordRules: [
+          v => v === this.password || 'Passwordと違います'
+        ],
+        errors: {
+          email: [],
+        }
     }
   },
- methods: {
-  async sign_up() {
-    try {
-      await this.$axios.post("/api/users", {
-          user: {
+  methods: {
+    async sign_up() {
+      try {
+        await this.$axios.post("/api/users", {
+            user: {
+              email: this.email,
+            password: this.password
+            }
+        })
+        await this.$auth.loginWith('local', {
+          data: { user: {
             email: this.email,
-           password: this.password
+            password: this.password
           }
-      })
-      await this.$auth.loginWith('local', {
-         data: { user: {
-           email: this.email,
-           password: this.password
-         }
-         }
-         })
-      // ここでホームへリダイレクトする前に行いたい処理
-      this.$router.replace({ path: '/' }); // 任意のタイミングでリダイレクト
-    } catch(error) {
-      console.log(error);
+          }
+          })
+        // ここでホームへリダイレクトする前に行いたい処理
+        this.$router.replace({ path: '/users/edit' }); // 任意のタイミングでリダイレクト
+      } catch(error) {
+        // var error = error.response.data.errors
+        this.errors.email = error.response.data.errors.email
+        console.log(error.response.data.errors);
+      }
+    },
+    onChage: function() {
+      this.errors.email = []
     }
+  },
+  components: {
+    BuTitle: () => import('~/components/BuTitle.vue')
   }
-}
 }
 </script>

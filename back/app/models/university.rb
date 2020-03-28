@@ -16,4 +16,6 @@ class University < ApplicationRecord
 
   has_many :users
   has_many :lectures
+  has_many :facluties
+
 end
