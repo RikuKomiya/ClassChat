@@ -5,7 +5,6 @@
     <v-text-field
       v-model="name"
       :rules="nameRules"
-      :error-messages="nameErrors"
       :counter="10"
       label="Name(ニックネーム)"
       required
@@ -31,7 +30,6 @@
             v-model="selectedFacluty"
             :items="facluty_names"
             :rules="presentRule"
-            :error-messages="selectErrors"
             label="学部"
             :disabled="!university"
             @input="selectFacluty"
@@ -49,8 +47,7 @@
       @blur="$v.checkbox.$touch()"
     ></v-checkbox> -->
 
-    <v-btn class="mr-4" @click="submit">submit</v-btn>
-    <v-btn @click="clear">clear</v-btn>
+    <v-btn class="mr-4" @click="updateUser">submit</v-btn>
   </v-form>
     </v-card-text>
   </v-card>  
@@ -106,6 +103,16 @@ export default {
     selectFacluty: function() {
       var selectedFacluty = this.facluties.find(({name}) => name === this.selectedFacluty)
       this.facluty = selectedFacluty
+    },
+    async updateUser() {
+      console.log(this.$auth.user.id)
+      await this.$axios.put('/api/users/' + this.$auth.user.id,{
+        user: {
+          name: this.name,
+          university_id: this.university.id,
+          facluty_id: this.facluty.id
+        }
+      }).then(() => this.$router.replace({ path: '/' }))
     }
   }
 }
